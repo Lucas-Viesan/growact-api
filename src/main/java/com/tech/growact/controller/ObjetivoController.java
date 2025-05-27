@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.tech.growact.model.Objetivo;
 import com.tech.growact.repository.ObjetivoRepository;
+import com.tech.growact.service.ObjetivoService;
 
 import jakarta.validation.Valid;
 
@@ -30,6 +31,9 @@ public class ObjetivoController {
 	
 	@Autowired
 	private ObjetivoRepository objetivoRepository;
+	
+	@Autowired
+	private ObjetivoService objetivoService;
 	
 	@GetMapping
 	public ResponseEntity <List<Objetivo>> getAll() {
@@ -43,11 +47,11 @@ public class ObjetivoController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
-	@PostMapping("/cadastrar")
-	public ResponseEntity <Objetivo> post(@Valid @RequestBody Objetivo objetivo){
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(objetivoRepository.save(objetivo));
-	}
+	@PostMapping("/cadastrar/{usuarioId}")
+	 public ResponseEntity<Objetivo> postObjetivo(@RequestBody Objetivo objetivo, @PathVariable Long usuarioId) {
+		Objetivo novoObjetivo = objetivoService.postObjetivo(objetivo, usuarioId);
+		return ResponseEntity.status(HttpStatus.CREATED).body(novoObjetivo);
+}
 	
 	@PutMapping("/atualizar")
 	public ResponseEntity <Objetivo> put(@Valid @RequestBody Objetivo objetivo){
