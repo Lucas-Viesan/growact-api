@@ -1,5 +1,7 @@
 package com.tech.growact.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,14 @@ public class ObjetivoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     
-
+    
+    //Método listar objetivos do usuário logado
+    public List<Objetivo> buscarObjetivosPorUsuario(Long usuarioId){
+    	return objetivoRepository.findByUsuarioId(usuarioId);
+    }
+    
+    
+    //Método para criar objetivo associado ao usuário
     public Objetivo postObjetivo (Objetivo objetivo, Long usuarioId) {
     	Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -35,5 +44,7 @@ public class ObjetivoService {
         return objetivoRepository.save(objetivo);
     
     }
+    
+    
 
 }

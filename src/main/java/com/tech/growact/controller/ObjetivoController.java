@@ -35,9 +35,9 @@ public class ObjetivoController {
 	@Autowired
 	private ObjetivoService objetivoService;
 	
-	@GetMapping
-	public ResponseEntity <List<Objetivo>> getAll() {
-		return ResponseEntity.ok(objetivoRepository.findAll());
+	@GetMapping("/usuario/{id}")
+	public ResponseEntity <List<Objetivo>> getAllByUsuario(@PathVariable Long id) {
+		return ResponseEntity.ok(objetivoService.buscarObjetivosPorUsuario(id));
 	}
 	
 	@GetMapping("/{id}")
