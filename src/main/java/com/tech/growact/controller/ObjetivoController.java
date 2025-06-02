@@ -53,12 +53,23 @@ public class ObjetivoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoObjetivo);
 }
 	
-	@PutMapping("/atualizar")
+	/*@PutMapping("/atualizar")
 	public ResponseEntity <Objetivo> put(@Valid @RequestBody Objetivo objetivo){
 		return objetivoRepository.findById(objetivo.getId())
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK)
 						.body(objetivoRepository.save(objetivo)))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}*/
+	
+	@PutMapping("/atualizar")
+	public ResponseEntity<Objetivo> put(@Valid @RequestBody Objetivo objetivo) {
+	    return objetivoRepository.findById(objetivo.getId())
+	            .map(resposta -> {
+	                // Atualiza apenas os campos que podem ser alterados no frontend
+	                resposta.setTitulo(objetivo.getTitulo());
+	                return ResponseEntity.ok(objetivoRepository.save(resposta));
+	            })
+	            .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
