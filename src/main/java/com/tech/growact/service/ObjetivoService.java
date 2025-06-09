@@ -38,7 +38,7 @@ public class ObjetivoService {
         }
 
         objetivo.setUsuario(usuario);
-        objetivo.setPercentual(0);
+        objetivo.setPercentual(0.0);
         objetivo.setConcluido(false);
 
         return objetivoRepository.save(objetivo);

@@ -1,12 +1,17 @@
 package com.tech.growact.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,12 +30,15 @@ public class Objetivo {
 	
 	private Boolean concluido;
 	
-	private Integer percentual;
+	private Double percentual;
 	
 	@ManyToOne
 	@JsonIgnoreProperties("objetivo")
 	private Usuario usuario;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "objetivo", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("objetivo")
+	private List<Tarefa> tarefa;
 	
 	
 	//Getters e Setters
@@ -59,11 +67,11 @@ public class Objetivo {
 		this.concluido = concluido;
 	}
 
-	public Integer getPercentual() {
+	public Double getPercentual() {
 		return percentual;
 	}
 
-	public void setPercentual(Integer percentual) {
+	public void setPercentual(Double percentual) {
 		this.percentual = percentual;
 	}
 
@@ -74,6 +82,16 @@ public class Objetivo {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public List<Tarefa> getTarefa() {
+		return tarefa;
+	}
+
+	public void setTarefa(List<Tarefa> tarefa) {
+		this.tarefa = tarefa;
+	}
+
+	
 	
 	
 	
