@@ -2,6 +2,7 @@ package com.tech.growact.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +23,8 @@ public class Tarefa {
 	@Size(max = 50, message = "O titulo deve ter no máximo 50 caracters")
 	private String descricao;
 	
-	private Boolean concluido;
+	@Column(nullable = false)
+	private Boolean concluido = false;
 	
 	@ManyToOne
 	@JsonIgnoreProperties("tarefa") 

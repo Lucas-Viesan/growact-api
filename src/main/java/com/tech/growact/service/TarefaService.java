@@ -53,19 +53,21 @@ public class TarefaService {
 
 	    
 	    
-	 public Tarefa concluirTarefa(Long tarefaId) {
-	        Tarefa tarefa = tarefaRepository.findById(tarefaId)
-	                .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+	public Tarefa concluirTarefa(Long tarefaId) {
+	    Tarefa tarefa = tarefaRepository.findById(tarefaId)
+	            .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
 
-	        // Marca a tarefa como concluída
-	        tarefa.setConcluido(true);
-	        Tarefa tarefaAtualizada = tarefaRepository.save(tarefa);
+	    // Alterna o estado atual da tarefa
+	    tarefa.setConcluido(!tarefa.getConcluido());
 
-	        // Atualiza o progresso do objetivo
-	        atualizarProgresso(tarefa.getObjetivo());
+	    Tarefa tarefaAtualizada = tarefaRepository.save(tarefa);
 
-	        return tarefaAtualizada;
-	    }
+	    // Atualiza o progresso do objetivo
+	    atualizarProgresso(tarefa.getObjetivo());
+
+	    return tarefaAtualizada;
+	}
+
 
 	   
 	 public void atualizarProgresso(Objetivo objetivo) {
