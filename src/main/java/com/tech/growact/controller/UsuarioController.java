@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tech.growact.model.UsuarioLogin;
+import com.tech.growact.Dto.PerfilResumoDto;
 import com.tech.growact.model.Usuario;
+import com.tech.growact.model.UsuarioLogin;
 import com.tech.growact.repository.UsuarioRepository;
 import com.tech.growact.service.UsuarioService;
 
@@ -46,6 +47,12 @@ public class UsuarioController {
 			.map(resposta -> ResponseEntity.ok(resposta))
 			.orElse(ResponseEntity.notFound().build());
 	}
+	
+	@GetMapping("/resumo-perfil/{usuarioId}")
+    public ResponseEntity<PerfilResumoDto> getPerfilResumo(@PathVariable Long usuarioId) {
+        PerfilResumoDto resumo = usuarioService.getResumoPerfil(usuarioId);
+        return ResponseEntity.ok(resumo);
+    }
 	
 	@PostMapping("/logar")
 	public ResponseEntity<UsuarioLogin> autenticarUsuario(@RequestBody Optional<UsuarioLogin> usuarioLogin){
