@@ -1,5 +1,6 @@
 package com.tech.growact.security;
 
+
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,29 +27,35 @@ public class JwtService {
 	}
 
 	private Claims extractAllClaims(String token) {
+		 System.out.println("Token recebido: [" + token + "]");
 		return Jwts.parserBuilder()
 				.setSigningKey(getSignKey()).build()
 				.parseClaimsJws(token).getBody();
 	}
 
 	public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+		 System.out.println("Token recebido: [" + token + "]");
 		final Claims claims = extractAllClaims(token);
 		return claimsResolver.apply(claims);
 	}
 
 	public String extractUsername(String token) {
+		 System.out.println("Token recebido: [" + token + "]");
 		return extractClaim(token, Claims::getSubject);
 	}
 
 	public Date extractExpiration(String token) {
+		 System.out.println("Token recebido: [" + token + "]");
 		return extractClaim(token, Claims::getExpiration);
 	}
 
 	private Boolean isTokenExpired(String token) {
+		 System.out.println("Token recebido: [" + token + "]");
 		return extractExpiration(token).before(new Date());
 	}
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
+		 System.out.println("Token recebido: [" + token + "]");
 		final String username = extractUsername(token);
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
