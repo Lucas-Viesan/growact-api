@@ -6,6 +6,7 @@ import java.util.List;
 import com.tech.growact.model.Objetivo;
 
 public class PerfilResumoDto {
+		private String foto;
 		private String nome;
 		private String email;
 		private long totalObjetivosConcluidos;
@@ -16,8 +17,9 @@ public class PerfilResumoDto {
 		private List<Objetivo> objetivosConcluidos;
 		
 		
-		public PerfilResumoDto(String nome, String email, long totalObjetivosConcluidos, long totalObjetivosPendentes,   long totalTarefasConcluidas, long totalTarefasPendentes,
+		public PerfilResumoDto(String foto, String nome, String email, long totalObjetivosConcluidos, long totalObjetivosPendentes,   long totalTarefasConcluidas, long totalTarefasPendentes,
                 List<Objetivo> objetivosConcluidos, List<Objetivo> objetivosPendentes ) {
+			this.foto = foto;
 			this.nome = nome;
 			this.email = email;
 	        this.totalObjetivosConcluidos = totalObjetivosConcluidos;

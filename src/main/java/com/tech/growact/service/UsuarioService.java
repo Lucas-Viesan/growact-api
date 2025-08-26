@@ -125,7 +125,7 @@ public class UsuarioService {
 		
 		String nome = usuario.getNome();
 		String email = usuario.getEmail();
-		
+		String foto = usuario.getFoto();		
 		List<Objetivo> objetivos = objetivoRepository.findByUsuarioId(usuarioId);
 
 		long totalObjetivosConcluidos = objetivos.stream()
@@ -144,6 +144,7 @@ public class UsuarioService {
 			    .collect(Collectors.toList());
 
         return new PerfilResumoDto(
+        		foto,
         		nome,
         		email,
                 totalObjetivosConcluidos,
